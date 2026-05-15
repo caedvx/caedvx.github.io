@@ -740,12 +740,14 @@ section {
    ============================================================ */
 
 .contact-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 1rem;
 }
 
 .contact-card {
+    width: 260px;
     background: var(--glass-bg);
     backdrop-filter: var(--glass-blur);
     -webkit-backdrop-filter: var(--glass-blur);
@@ -791,6 +793,7 @@ section {
     display: flex;
     flex-direction: column;
     gap: 0.15rem;
+    min-width: 0;
 }
 
 .contact-label {
@@ -804,6 +807,9 @@ section {
     font-size: 0.85rem;
     font-weight: 500;
     color: rgba(255, 255, 255, 0.75);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 
