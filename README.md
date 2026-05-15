@@ -1,2 +1,2 @@
-# caedvx-caedvx.github.io
+# caedvx.github.io
 My Github page
