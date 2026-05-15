@@ -37,6 +37,10 @@
             <svg class="nav-icon" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
             <span>Contact</span>
         </a>
+        <a class="nav-link" href="#donate">
+            <svg class="nav-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9 8h4.5a2.5 2.5 0 0 1 0 5H9m0-5v8m0-5h5.5a2.5 2.5 0 0 1 0 5H9"/><line x1="11" y1="6" x2="11" y2="8"/><line x1="13" y1="6" x2="13" y2="8"/><line x1="11" y1="16" x2="11" y2="18"/><line x1="13" y1="16" x2="13" y2="18"/></svg>
+            <span>Donate</span>
+        </a>
     </div>
 </nav>
 
@@ -269,6 +273,37 @@
     </div>
 </section>
 
+<div class="divider"></div>
+
+<!-- ── Donate ─────────────────────────────────────────────── -->
+<section id="donate">
+    <div class="page-container">
+        <div class="section-header animate-in" style="text-align:center;align-items:center;display:flex;flex-direction:column;">
+            <div class="section-badge">Support</div>
+            <h2>Buy me a coffee</h2>
+            <p>If my work has been useful to you, a small donation is always appreciated.</p>
+        </div>
+
+        <div class="donate-wrapper animate-in">
+            <div class="glass-panel donate-card">
+                <div class="donate-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><path d="M9 8h4.5a2.5 2.5 0 0 1 0 5H9m0-5v8m0-5h5.5a2.5 2.5 0 0 1 0 5H9"/><line x1="11" y1="6" x2="11" y2="8"/><line x1="13" y1="6" x2="13" y2="8"/><line x1="11" y1="16" x2="11" y2="18"/><line x1="13" y1="16" x2="13" y2="18"/></svg>
+                </div>
+                <div class="donate-body">
+                    <span class="donate-label">Bitcoin</span>
+                    <a class="donate-address" href="bitcoin:bc1qm6jx9hsgdvzysmmllz6y3hgux85xksnchta075" title="Send Bitcoin">
+                        bc1qm6jx9hsgdvzysmmllz6y3hgux85xksnchta075
+                    </a>
+                    <button class="donate-copy btn-ghost" data-addr="bc1qm6jx9hsgdvzysmmllz6y3hgux85xksnchta075">
+                        <svg style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                        Copy address
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- ── Footer ─────────────────────────────────────────────── -->
 <footer>
     <div class="page-container">
@@ -319,6 +354,17 @@
     document.querySelectorAll('.animate-in').forEach(el => {
         el.style.animationPlayState = 'paused';
         observer.observe(el);
+    });
+
+    // Copy Bitcoin address
+    document.querySelectorAll('.donate-copy').forEach(btn => {
+        btn.addEventListener('click', () => {
+            navigator.clipboard.writeText(btn.dataset.addr).then(() => {
+                const original = btn.innerHTML;
+                btn.innerHTML = '<svg style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Copied!';
+                setTimeout(() => { btn.innerHTML = original; }, 2000);
+            });
+        });
     });
 </script>
 
