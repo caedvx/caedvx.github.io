@@ -284,17 +284,14 @@
             <p>If my work has been useful to you, a small donation is always appreciated.</p>
         </div>
 
-        <div class="donate-wrapper animate-in">
-            <button class="donate-card" data-addr="bc1qm6jx9hsgdvzysmmllz6y3hgux85xksnchta075">
-                <div class="donate-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><path d="M9 8h4.5a2.5 2.5 0 0 1 0 5H9m0-5v8m0-5h5.5a2.5 2.5 0 0 1 0 5H9"/><line x1="11" y1="6" x2="11" y2="8"/><line x1="13" y1="6" x2="13" y2="8"/><line x1="11" y1="16" x2="11" y2="18"/><line x1="13" y1="16" x2="13" y2="18"/></svg>
+        <div class="contact-grid animate-in">
+            <button class="contact-card donate-card" data-addr="bc1qm6jx9hsgdvzysmmllz6y3hgux85xksnchta075">
+                <div class="contact-icon donate-btc-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#fde68a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9 8h4.5a2.5 2.5 0 0 1 0 5H9m0-5v8m0-5h5.5a2.5 2.5 0 0 1 0 5H9"/><line x1="11" y1="6" x2="11" y2="8"/><line x1="13" y1="6" x2="13" y2="8"/><line x1="11" y1="16" x2="11" y2="18"/><line x1="13" y1="16" x2="13" y2="18"/></svg>
                 </div>
-                <div class="donate-body">
-                    <span class="donate-label">Bitcoin — click to copy address</span>
-                    <span class="donate-address">bc1qm6jx9hsgdvzysmmllz6y3hgux85xksnchta075</span>
-                </div>
-                <div class="donate-copy-icon">
-                    <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                <div class="contact-info">
+                    <span class="contact-label donate-status">Bitcoin · click to copy</span>
+                    <span class="contact-value">bc1qm6jx9hsgd…chta075</span>
                 </div>
             </button>
         </div>
@@ -357,15 +354,9 @@
     document.querySelectorAll('.donate-card').forEach(card => {
         card.addEventListener('click', () => {
             navigator.clipboard.writeText(card.dataset.addr).then(() => {
-                const icon = card.querySelector('.donate-copy-icon svg');
-                const label = card.querySelector('.donate-label');
-                const prevLabel = label.textContent;
-                icon.innerHTML = '<polyline points="20 6 9 17 4 12"/>';
-                label.textContent = 'Copied!';
-                setTimeout(() => {
-                    icon.innerHTML = '<rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>';
-                    label.textContent = prevLabel;
-                }, 2000);
+                const status = card.querySelector('.donate-status');
+                status.textContent = 'Copied!';
+                setTimeout(() => { status.textContent = 'Bitcoin · click to copy'; }, 2000);
             });
         });
     });
