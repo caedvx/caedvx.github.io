@@ -706,21 +706,10 @@ section {
     gap: 0.4rem;
 }
 
-.skill-label {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 0.78rem;
-}
-
 .skill-name {
+    font-size: 0.78rem;
     color: rgba(255, 255, 255, 0.7);
     font-weight: 500;
-}
-
-.skill-pct {
-    color: rgba(255, 255, 255, 0.3);
-    font-size: 0.7rem;
 }
 
 .skill-bar-track {
