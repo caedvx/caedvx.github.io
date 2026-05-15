@@ -839,6 +839,16 @@ section {
     color: rgba(253, 230, 138, 0.6) !important;
 }
 
+.discord-icon {
+    background: rgba(99, 102, 241, 0.12) !important;
+    border-color: rgba(165, 180, 252, 0.3) !important;
+}
+
+.discord-icon svg {
+    width: 17px;
+    height: 17px;
+}
+
 
 /* ============================================================
    FOOTER
