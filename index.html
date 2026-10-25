@@ -31,7 +31,6 @@
     <div class="orb orb--b"></div>
     <div class="orb orb--c"></div>
 </div>
-<div class="spotlight" aria-hidden="true"></div>
 
 <a class="skip" href="#about">Skip to content</a>
 
@@ -253,15 +252,6 @@
             tocLinks.forEach((a, i) => a.classList.toggle('is-current', i === tocLinks.length - 1));
     }, { passive: true });
 
-    // Soft light that follows the cursor
-    const spot = document.querySelector('.spotlight');
-    if (matchMedia('(hover: hover)').matches) {
-        addEventListener('pointermove', e => {
-            spot.style.setProperty('--x', e.clientX + 'px');
-            spot.style.setProperty('--y', e.clientY + 'px');
-            spot.classList.add('is-on');
-        }, { passive: true });
-    }
 
     // Reveal on scroll
     if (motion) {
