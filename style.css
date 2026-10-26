@@ -40,6 +40,10 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+}
+
+/* Only body clips: on html as well, body becomes its own scroll container and the sticky profile stops sticking */
+body {
     overflow-x: hidden;
 }
 
@@ -311,6 +315,19 @@ p {
     height: 1.05em;
     flex: none;
     fill: currentColor;
+    overflow: visible;
+}
+
+/* Letters rise out of this mask on load */
+.name-text {
+    display: inline-flex;
+    overflow: hidden;
+    padding-block: 0.08em;
+    margin-block: -0.08em;
+}
+
+.name-text .char {
+    display: inline-block;
 }
 
 .tagline {
@@ -922,27 +939,34 @@ a.item-body:hover .arrow {
 }
 
 
-/* ── Motion: visible by default, hidden only once JS opts in ── */
+/* ── Motion: visible by default, hidden only once JS opts in ──
+   GSAP drives every entrance; `is-shown` hands the stay-visible guarantee back to CSS. */
 
+.motion [data-intro],
 .motion .reveal,
-.motion .profile-top > *,
-.motion .profile-bottom {
+.motion .name {
     opacity: 0;
-    transform: translateY(14px);
-    transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
 }
 
+.motion [data-intro].is-shown,
 .motion .reveal.is-shown,
-.motion .profile.is-shown .profile-top > *,
-.motion .profile.is-shown .profile-bottom {
+.motion .name.is-shown {
     opacity: 1;
-    transform: none;
 }
 
-.motion .profile-top > :nth-child(2) { transition-delay: 0.08s; }
-.motion .profile-top > :nth-child(3) { transition-delay: 0.16s; }
-.motion .profile-top > :nth-child(4) { transition-delay: 0.24s; }
-.motion .profile-bottom { transition-delay: 0.32s; }
+/* Lenis owns the smoothing while it runs */
+html.lenis,
+html.lenis body {
+    height: auto;
+}
+
+.lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+}
+
+.lenis.lenis-stopped {
+    overflow: hidden;
+}
 
 @media (prefers-reduced-motion: reduce) {
     html {
