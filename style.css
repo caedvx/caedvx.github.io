@@ -285,10 +285,20 @@ p {
 }
 
 .name {
-    font-size: clamp(2.8rem, 6vw, 4.6rem);
+    display: flex;
+    align-items: center;
+    gap: 0.24em;
+    font-size: clamp(2.4rem, 4.4vw, 3.9rem);
     font-weight: 700;
     line-height: 1;
     letter-spacing: 0.03em;
+}
+
+.name-mark {
+    width: 1.05em;
+    height: 1.05em;
+    flex: none;
+    fill: currentColor;
 }
 
 .tagline {
