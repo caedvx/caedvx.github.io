@@ -114,46 +114,58 @@ p {
 
 .orb {
     position: absolute;
+    overflow: hidden;
     border-radius: 50%;
-    filter: blur(var(--blur, 70px));
     opacity: var(--op, 0.5);
     mix-blend-mode: screen;
+    background: radial-gradient(circle closest-side, rgba(var(--c), 1.000) 0%, rgba(var(--c), 0.961) 10%, rgba(var(--c), 0.851) 20%, rgba(var(--c), 0.696) 30%, rgba(var(--c), 0.524) 40%, rgba(var(--c), 0.363) 50%, rgba(var(--c), 0.230) 60%, rgba(var(--c), 0.132) 70%, rgba(var(--c), 0.066) 80%, rgba(var(--c), 0.025) 90%, rgba(var(--c), 0) 100%);
 }
 
 .orb--a {
-    width: 46vmax;
-    height: 46vmax;
-    left: -14vmax;
-    top: -10vmax;
-    background: radial-gradient(circle at 40% 40%, rgba(138, 138, 134, 1) 0%, rgba(138, 138, 134, 0.7) 17%, rgba(138, 138, 134, 0.4) 34%, rgba(138, 138, 134, 0.16) 51%, rgba(138, 138, 134, 0) 68%);
-    --blur: 90px;
+    width: 90vmax;
+    height: 90vmax;
+    left: -40.6vmax;
+    top: -36.6vmax;
+    --c: 138, 138, 134;
     --op: 0.55;
     animation: drift-a 52s ease-in-out infinite;
 }
 
 .orb--b {
-    width: 36vmax;
-    height: 36vmax;
-    right: -12vmax;
-    top: 12vmax;
-    background: radial-gradient(circle at 55% 45%, rgba(230, 230, 227, 1) 0%, rgba(230, 230, 227, 0.7) 16%, rgba(230, 230, 227, 0.4) 33%, rgba(230, 230, 227, 0.16) 50%, rgba(230, 230, 227, 0) 66%);
-    --blur: 80px;
+    width: 72vmax;
+    height: 72vmax;
+    right: -31.8vmax;
+    top: -7.8vmax;
+    --c: 230, 230, 227;
     --op: 0.36;
     animation: drift-b 68s ease-in-out infinite;
 }
 
 .orb--c {
-    width: 40vmax;
-    height: 40vmax;
-    left: 22vw;
-    bottom: -20vmax;
-    background: radial-gradient(circle at 45% 55%, rgba(42, 42, 40, 1) 0%, rgba(42, 42, 40, 0.7) 17%, rgba(42, 42, 40, 0.4) 35%, rgba(42, 42, 40, 0.16) 52%, rgba(42, 42, 40, 0) 70%);
-    --blur: 95px;
+    width: 80vmax;
+    height: 80vmax;
+    left: calc(22vw - 22vmax);
+    bottom: -42vmax;
+    --c: 42, 42, 40;
     --op: 0.5;
     animation: drift-c 61s ease-in-out infinite;
 }
 
-/* Static noise breaks up banding in the soft grey gradients */
+/* Dithered canvas versions of the background and orbs, drawn by the script in index.html */
+.glow-field > canvas,
+.orb > canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.orb.is-dithered {
+    background: #000;
+    opacity: 1;
+}
+
+/* Static grain for texture */
 .glow-field::after {
     content: '';
     position: absolute;

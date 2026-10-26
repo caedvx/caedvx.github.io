@@ -268,6 +268,47 @@
         requestAnimationFrame(() => document.querySelector('.profile').classList.add('is-shown'));
     }
 
+    // Redraw the dark gradients with per-pixel dither; CSS gradients band in 8-bit
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    const tri = () => Math.random() - Math.random();
+    const paint = (el, w, h, shade) => {
+        let cv = el.querySelector(':scope > canvas');
+        if (!cv) { cv = document.createElement('canvas'); el.prepend(cv); }
+        cv.width = w; cv.height = h;
+        const ctx = cv.getContext('2d'), img = ctx.createImageData(w, h), d = img.data;
+        for (let y = 0, i = 0; y < h; y++)
+            for (let x = 0; x < w; x++, i += 4) {
+                const [r, g, b] = shade(x, y);
+                d[i] = r + tri() + 0.5; d[i + 1] = g + tri() + 0.5; d[i + 2] = b + tri() + 0.5; d[i + 3] = 255;
+            }
+        ctx.putImageData(img, 0, 0);
+    };
+    const drawGlow = () => {
+        const field = document.querySelector('.glow-field');
+        const w = Math.round(innerWidth * dpr), h = Math.round(innerHeight * dpr);
+        paint(field, w, h, (x, y) => {
+            const t = Math.min(1, Math.hypot((x - w / 2) / (1.4 * w), y / h));
+            const v = 10 - 5 * t;
+            return [v, v, v];
+        });
+        document.querySelectorAll('.orb').forEach(orb => {
+            const cs = getComputedStyle(orb);
+            const c = cs.getPropertyValue('--c').split(',').map(Number);
+            const op = parseFloat(cs.getPropertyValue('--op')) || 0.5;
+            const s = Math.min(1600, Math.round(orb.offsetWidth));
+            const R = s / 2;
+            paint(orb, s, s, (x, y) => {
+                const t = Math.hypot(x - R, y - R) / R;
+                const a = t >= 1 ? 0 : op * Math.max(0, Math.exp(-4 * t * t) - 0.018 * t * t);
+                return [c[0] * a, c[1] * a, c[2] * a];
+            });
+            orb.classList.add('is-dithered');
+        });
+    };
+    drawGlow();
+    let glowTimer;
+    addEventListener('resize', () => { clearTimeout(glowTimer); glowTimer = setTimeout(drawGlow, 250); });
+
     // Project filters
     const filters = document.querySelectorAll('.filter');
     filters.forEach(btn => btn.addEventListener('click', () => {
