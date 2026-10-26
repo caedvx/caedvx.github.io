@@ -285,21 +285,6 @@ p {
     color: var(--text-dim);
 }
 
-.dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--success);
-    box-shadow: 0 0 0 0 rgba(110, 231, 183, 0.5);
-    animation: pulse 2.6s ease-out infinite;
-}
-
-@keyframes pulse {
-    0%   { box-shadow: 0 0 0 0 rgba(110, 231, 183, 0.45); }
-    70%  { box-shadow: 0 0 0 8px rgba(110, 231, 183, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(110, 231, 183, 0); }
-}
-
 .name {
     display: flex;
     align-items: center;
@@ -973,8 +958,7 @@ html.lenis body {
         scroll-behavior: auto;
     }
 
-    .orb,
-    .dot {
+    .orb {
         animation: none !important;
     }
 }
