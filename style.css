@@ -1,8 +1,8 @@
 /* caedvx.github.io, on ODIVM Graphite */
 
 :root {
-    --bg: #0a0a0a;
-    --bg-deep: #050505;
+    --bg: #000000;
+    --bg-deep: #000000;
     --text: #f2f2f0;
     --text-dim: rgba(242, 242, 240, 0.56);
     --text-faint: rgba(242, 242, 240, 0.35);
@@ -131,7 +131,7 @@ p {
     left: -40.6vmax;
     top: -36.6vmax;
     --c: 138, 138, 134;
-    --op: 0.55;
+    --op: 0.12;
     animation: drift-a 52s ease-in-out infinite;
 }
 
@@ -141,7 +141,7 @@ p {
     right: -31.8vmax;
     top: -7.8vmax;
     --c: 230, 230, 227;
-    --op: 0.36;
+    --op: 0.06;
     animation: drift-b 68s ease-in-out infinite;
 }
 
@@ -151,7 +151,7 @@ p {
     left: calc(22vw - 22vmax);
     bottom: -42vmax;
     --c: 42, 42, 40;
-    --op: 0.5;
+    --op: 0.3;
     animation: drift-c 61s ease-in-out infinite;
 }
 
@@ -580,7 +580,7 @@ strong {
     flex-direction: column;
     gap: 0.3rem;
     padding: 1rem 1.1rem;
-    background: rgba(10, 10, 10, 0.55);
+    background: rgba(0, 0, 0, 0.55);
     font-family: var(--font-display);
     font-size: 0.92rem;
     font-weight: 600;

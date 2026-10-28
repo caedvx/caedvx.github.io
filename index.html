@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="CAEDVX, developer and co-founder of ODIVM." />
-    <meta name="theme-color" content="#0a0a0a" />
+    <meta name="theme-color" content="#000000" />
     <title>CAEDVX</title>
     <link rel="icon" type="image/png" href="/favicon-96x96.png?v=2" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2" />
@@ -375,7 +375,6 @@
     }));
 
     // Redraw the dark gradients with per-pixel dither; CSS gradients band in 8-bit
-    const dpr = Math.min(devicePixelRatio || 1, 2);
     const tri = () => Math.random() - Math.random();
     const paint = (el, w, h, shade) => {
         let cv = el.querySelector(':scope > canvas');
@@ -385,18 +384,13 @@
         for (let y = 0, i = 0; y < h; y++)
             for (let x = 0; x < w; x++, i += 4) {
                 const [r, g, b] = shade(x, y);
-                d[i] = r + tri() + 0.5; d[i + 1] = g + tri() + 0.5; d[i + 2] = b + tri() + 0.5; d[i + 3] = 255;
+                // Leave pure black untouched so the dither never lifts the base
+                if (r || g || b) { d[i] = r + tri() + 0.5; d[i + 1] = g + tri() + 0.5; d[i + 2] = b + tri() + 0.5; }
+                d[i + 3] = 255;
             }
         ctx.putImageData(img, 0, 0);
     };
     const drawGlow = () => {
-        const field = document.querySelector('.glow-field');
-        const w = Math.round(innerWidth * dpr), h = Math.round(innerHeight * dpr);
-        paint(field, w, h, (x, y) => {
-            const t = Math.min(1, Math.hypot((x - w / 2) / (1.4 * w), y / h));
-            const v = 10 - 5 * t;
-            return [v, v, v];
-        });
         document.querySelectorAll('.orb').forEach(orb => {
             const cs = getComputedStyle(orb);
             const c = cs.getPropertyValue('--c').split(',').map(Number);
