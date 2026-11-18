@@ -618,6 +618,30 @@ strong {
     font-size: 0.8rem;
 }
 
+.company-product {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.company-product h4,
+.company-product p {
+    margin: 0;
+}
+
+.company-product h4 {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.company-product p {
+    font-size: 0.93rem;
+    line-height: 1.6;
+}
+
 
 /* ── Work list ── */
 
