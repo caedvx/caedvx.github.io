@@ -96,6 +96,7 @@
                     or tinkering with something new.
                 </p>
             </div>
+            <div class="geo" id="geo" hidden></div>
         </section>
 
         <section id="odivm" class="section">
@@ -412,5 +413,48 @@
     }));
 </script>
 
+<script>
+    // Live ranked team duel card, fed by the geo.caedvx.com Worker. Stays hidden if the data can't load.
+    (async () => {
+        const el = document.getElementById('geo');
+        const esc = v => String(v ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+        const img = (path, w) => `https://www.geoguessr.com/images/resize:fit:${w}:0/gravity:ce/plain/${path}`;
+        const fmt = n => Number(n).toLocaleString('en-GB');
+        const ago = iso => {
+            const m = Math.max(0, Math.round((Date.now() - new Date(iso)) / 60000));
+            return m < 1 ? 'just now' : m < 60 ? `${m} min ago` : `${Math.round(m / 60)} h ago`;
+        };
+        let d;
+        try {
+            const r = await fetch('https://geo.caedvx.com/', { signal: AbortSignal.timeout(8000) });
+            if (!r.ok) return;
+            d = await r.json();
+        } catch { return; }
+        if (!d.team) return;
+        const t = d.team, wins = d.latestGames.filter(Boolean).length;
+        const stat = (label, s) => `<div class="geo-stat"><span class="num">${label}</span><b>${s.rating ? fmt(s.rating) : '–'}</b><small>${s.rank ? `Top ${fmt(s.rank)} duos` : esc(t.division)}</small></div>`;
+        el.innerHTML = `
+            <div class="geo-stage" aria-hidden="true">${t.members.map((m, i) => `<img class="geo-body" style="--i:${i}" src="${img(m.body, 240)}" alt="" loading="lazy">`).join('')}</div>
+            <div class="geo-main">
+                <div class="geo-top">
+                    <span class="eyebrow num"><i class="geo-live"></i>GeoGuessr · Ranked team duels</span>
+                    <a class="corner" href="${esc(d.profile)}" target="_blank" rel="noopener" aria-label="View on GeoGuessr">&nearr;</a>
+                </div>
+                <div class="geo-name">
+                    <h3>${esc(t.name)}</h3>
+                    ${t.members[0]?.club ? `<span class="geo-club num">${esc(t.members[0].club)}</span>` : ''}
+                </div>
+                <p class="geo-members">${t.members.map(m => `<span><img src="https://flagcdn.com/w40/${esc(m.country)}.png" alt="${esc(m.country.toUpperCase())}" width="16" height="12">${esc(m.nick)}</span>`).join('<i>&amp;</i>')}</p>
+                <span class="geo-div num" data-tier="${esc(t.tier)}">${esc(t.division)}</span>
+                <div class="geo-stats">${stat('Elo', d.overall)}${stat('NMPZ Elo', d.nmpz)}</div>
+                <div class="geo-foot">
+                    <ol class="geo-form" aria-label="Last ${d.latestGames.length} games: ${wins} wins">${d.latestGames.map(w => `<li class="${w ? 'w' : 'l'}"></li>`).join('')}</ol>
+                    <span class="num">${wins}–${d.latestGames.length - wins} last ${d.latestGames.length} · ${fmt(d.gamesPlayed)} games · updated ${ago(d.updated)}</span>
+                </div>
+            </div>`;
+        el.hidden = false;
+        requestAnimationFrame(() => el.classList.add('is-in'));
+    })();
+</script>
 </body>
 </html>
