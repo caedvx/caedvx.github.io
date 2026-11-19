@@ -432,16 +432,14 @@
         } catch { return; }
         if (!d.team) return;
         const t = d.team, wins = d.latestGames.filter(Boolean).length;
-        const since = d.lastPlayed ? Date.now() - new Date(d.lastPlayed) : Infinity;
-        const playing = since < 25 * 60000;
-        const status = playing ? 'Playing now' : d.lastPlayed ? `Last played ${ago(d.lastPlayed)}` : '';
+        const status = d.lastPlayed ? `Last played ${ago(d.lastPlayed)}` : '';
         const delta = (v, unit) => !v ? '' : `<em class="${v > 0 ? 'up' : 'down'}" title="Change over the last 24 hours">${v > 0 ? '▲' : '▼'} ${fmt(Math.abs(v))}${unit}</em>`;
         const stat = (label, s, c) => `<div class="geo-stat"><span class="num">${label}</span><b>${s.rating ? fmt(s.rating) : '–'}${delta(c?.rating, '')}</b><small>${s.rank ? `<strong>#${fmt(s.rank)}</strong> globally${delta(c?.rank, '')}` : esc(t.division)}</small></div>`;
         el.innerHTML = `
             <div class="geo-stage" aria-hidden="true">${t.members.map((m, i) => `<img class="geo-body" style="--i:${i}" src="${img(m.body, 240)}" alt="" loading="lazy">`).join('')}</div>
             <div class="geo-main">
                 <div class="geo-top">
-                    <span class="eyebrow num"><i class="geo-live${playing ? ' is-on' : ''}" title="${esc(status)}"></i>GeoGuessr · Ranked team duels</span>
+                    <span class="eyebrow num">GeoGuessr · Ranked team duels</span>
                     <a class="corner" href="${esc(d.profile)}" target="_blank" rel="noopener" aria-label="View on GeoGuessr">&nearr;</a>
                 </div>
                 <div class="geo-name">
@@ -453,7 +451,7 @@
                 <div class="geo-stats">${stat('Elo', d.overall, d.change?.overall)}${stat('NMPZ Elo', d.nmpz, d.change?.nmpz)}</div>
                 <div class="geo-foot">
                     <ol class="geo-form" aria-label="Last ${d.latestGames.length} games: ${wins} wins">${d.latestGames.map(w => `<li class="${w ? 'w' : 'l'}"></li>`).join('')}</ol>
-                    <span class="num"><span class="geo-status${playing ? ' is-on' : ''}">${esc(status)}</span>${status ? ' · ' : ''}${wins}–${d.latestGames.length - wins} last ${d.latestGames.length} · ${fmt(d.gamesPlayed)} games${d.change ? ' · ▲▼&nbsp;24&nbsp;h' : ''}</span>
+                    <span class="num">${esc(status)}${status ? ' · ' : ''}${wins}–${d.latestGames.length - wins} last ${d.latestGames.length} · ${fmt(d.gamesPlayed)} games</span>
                 </div>
             </div>`;
         el.hidden = false;

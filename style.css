@@ -734,30 +734,6 @@ strong {
     gap: 1rem;
 }
 
-.geo-live {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--text-faint);
-}
-
-.geo-live.is-on {
-    background: var(--success);
-    box-shadow: 0 0 0 3px rgba(110, 231, 183, 0.18);
-}
-
-.motion .geo-live.is-on {
-    animation: geo-pulse 2.4s ease-in-out infinite;
-}
-
-.geo-status.is-on {
-    color: var(--success);
-}
-
-@keyframes geo-pulse {
-    50% { box-shadow: 0 0 0 6px rgba(110, 231, 183, 0); }
-}
-
 .geo-name {
     display: flex;
     align-items: center;
