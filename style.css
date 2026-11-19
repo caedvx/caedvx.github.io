@@ -738,12 +738,20 @@ strong {
     width: 6px;
     height: 6px;
     border-radius: 50%;
+    background: var(--text-faint);
+}
+
+.geo-live.is-on {
     background: var(--success);
     box-shadow: 0 0 0 3px rgba(110, 231, 183, 0.18);
 }
 
-.motion .geo-live {
+.motion .geo-live.is-on {
     animation: geo-pulse 2.4s ease-in-out infinite;
+}
+
+.geo-status.is-on {
+    color: var(--success);
 }
 
 @keyframes geo-pulse {
@@ -856,6 +864,28 @@ strong {
     font-size: 0.78rem;
     color: var(--text-dim);
 }
+
+.geo-stat strong {
+    color: var(--text);
+    font-weight: 600;
+}
+
+.geo-stat em {
+    margin-left: 0.45em;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-style: normal;
+    font-weight: 500;
+    letter-spacing: 0;
+    vertical-align: middle;
+}
+
+.geo-stat b em {
+    font-size: 0.72rem;
+}
+
+.geo-stat .up { color: var(--success); }
+.geo-stat .down { color: #f87171; }
 
 .geo-foot {
     display: flex;
